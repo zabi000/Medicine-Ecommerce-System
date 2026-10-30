@@ -1,0 +1,53 @@
+HOW TO SEE THE CHANGES - CLEAR BROWSER CACHE
+=====================================================
+
+The website has been updated but your browser is showing old cached files.
+
+OPTION 1 - Hard Refresh (Recommended):
+--------------------------------------
+Windows/Linux: Press Ctrl + Shift + R
+OR: Press Ctrl + F5
+
+Mac: Press Cmd + Shift + R
+
+
+OPTION 2 - Clear Browser Cache:
+-------------------------------
+Chrome:
+1. Press Ctrl + Shift + Delete
+2. Select "Cached images and files"
+3. Click "Clear data"
+
+Firefox:
+1. Press Ctrl + Shift + Delete
+2. Select "Cache"
+3. Click "Clear Now"
+
+Edge:
+1. Press Ctrl + Shift + Delete
+2. Select "Cached images and files"
+3. Click "Clear"
+
+
+OPTION 3 - Open in Incognito/Private Mode:
+------------------------------------------
+Chrome: Ctrl + Shift + N
+Firefox: Ctrl + Shift + P
+Edge: Ctrl + Shift + N
+
+
+WHAT SHOULD YOU SEE AFTER CLEARING CACHE:
+-----------------------------------------
+✓ Darker red color (less bright)
+✓ White navigation menu text (Home, Products, About, Contact) clearly visible
+✓ Better contrast throughout the website
+✓ All buttons with updated colors
+
+
+If you still don't see changes, try:
+1. Close ALL browser windows
+2. Reopen browser
+3. Go to: http://localhost/ppp/index.html
+4. Press Ctrl + Shift + R
+
+The changes ARE in the files - it's just a browser cache issue!

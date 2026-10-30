@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed - MEDIX Online Pharmacy</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { background: #F8FAFC; font-family: 'Inter', sans-serif; }
+        .navbar { background: linear-gradient(135deg, #B91C1C, #991B1B) !important; }
+        .success-card {
+            background: white;
+            border-radius: 24px;
+            border: 1.5px solid #F1F5F9;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            max-width: 680px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container justify-content-center">
+                <a class="navbar-brand d-flex align-items-center" href="index.html">
+                    <div class="logo-icon-wrapper me-2"><i class="bi bi-heart-pulse-fill"></i></div>
+                    <span class="fw-bold" style="letter-spacing: 1px;">MEDIX PHARMACY</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container py-5">
+        <div class="success-card p-4 p-md-5 text-center">
+            <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-success text-white mb-4" style="width: 80px; height: 80px; font-size: 2.5rem;">
+                <i class="bi bi-check-lg"></i>
+            </div>
+
+            <h3 class="fw-bold mb-2">Thank You! Your Medicine Order is Confirmed</h3>
+            <p class="text-muted mb-4">Our licensed pharmacist is currently reviewing your order and dispatching it for temperature-controlled express delivery.</p>
+
+            <div class="p-3 rounded-4 mb-4" style="background:#F8FAFC; border: 1px dashed #CBD5E1;">
+                <div class="row g-2 text-start">
+                    <div class="col-6">
+                        <small class="text-muted d-block">Order Reference Number</small>
+                        <strong class="text-danger fs-6" id="orderNumDisplay">ORD-XXXX</strong>
+                    </div>
+                    <div class="col-6 text-end">
+                        <small class="text-muted d-block">Estimated Delivery</small>
+                        <strong class="text-success fs-6">Today within 2-4 Hours</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-start mb-4" id="orderDetailsSection">
+                <!-- Order items and shipping address -->
+            </div>
+
+            <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                <a href="index.html" class="btn btn-danger rounded-pill px-4 py-2 fw-bold">
+                    <i class="bi bi-house-door me-1"></i> Return to Homepage
+                </a>
+                <a href="products.html" class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-semibold">
+                    <i class="bi bi-bag-plus me-1"></i> Order More Medicines
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderNum = urlParams.get('order_number') || 'ORD-2026-CONFIRMED';
+        document.getElementById('orderNumDisplay').textContent = orderNum;
+
+        const stored = sessionStorage.getItem('lastOrder');
+        if (stored) {
+            try {
+                const order = JSON.parse(stored);
+                document.getElementById('orderDetailsSection').innerHTML = `
+                    <div class="p-3 bg-light rounded-3 mb-3">
+                        <h6 class="fw-bold mb-2">Delivery Summary</h6>
+                        <div class="small text-muted"><strong>Recipient:</strong> ${order.customer_name} (${order.customer_phone || ''})</div>
+                        <div class="small text-muted"><strong>Address:</strong> ${order.customer_address}, ${order.city || ''}</div>
+                        <div class="small text-muted"><strong>Payment Method:</strong> ${order.payment_method?.toUpperCase()}</div>
+                    </div>
+                    <div class="border rounded-3 p-3">
+                        <h6 class="fw-bold mb-2">Items Ordered (${order.items?.length || 0})</h6>
+                        ${(order.items || []).map(i => `
+                            <div class="d-flex justify-content-between small py-1 border-bottom">
+                                <span>${i.name} &times; ${i.quantity}</span>
+                                <span class="fw-bold">PKR ${i.subtotal?.toLocaleString()}</span>
+                            </div>
+                        `).join('')}
+                        <div class="d-flex justify-content-between fw-bold pt-2 text-danger">
+                            <span>Total (incl. Express Delivery):</span>
+                            <span>PKR ${order.total_amount?.toLocaleString()}</span>
+                        </div>
+                    </div>
+                `;
+            } catch (e) {}
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Doctor Prescription & Medicine Formula Assistant - MEDIX</title>
+    <meta name="description" content="Upload doctor prescription photos or search active chemical formula salts for clinical verification, contraindications, and verified pharmacy medicine matching.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { background: #F8FAFC; font-family: 'Inter', sans-serif; }
+        .navbar { background: linear-gradient(135deg, #B91C1C, #991B1B) !important; }
+        .nav-link { color:#FFFFFF !important; font-weight:500 !important; }
+        .prescription-box {
+            background: white;
+            border-radius: 24px;
+            border: 1.5px solid #F1F5F9;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+        }
+        .dropzone-area {
+            border: 2px dashed #CBD5E1;
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            background: #F8FAFC;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .dropzone-area:hover {
+            border-color: #B91C1C;
+            background: #FEF2F2;
+        }
+        .formula-chip-btn {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .formula-chip-btn:hover {
+            background: #FEF2F2;
+            border-color: #B91C1C;
+            color: #B91C1C;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="index.html">
+                    <div class="logo-icon-wrapper me-2"><i class="bi bi-heart-pulse-fill"></i></div>
+                    <span class="fw-bold" style="letter-spacing: 1px;">MEDIX</span>
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+                        <li class="nav-item"><a class="nav-link active text-warning fw-bold" href="prescription.html"><i class="bi bi-robot"></i> AI Prescription</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    </ul>
+                    
+                    <div class="d-flex align-items-center gap-2">
+                        <a href="cart.html" class="position-relative text-white">
+                            <i class="bi bi-cart3 fs-4"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-count">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Subtitle -->
+    <section class="py-5 bg-white border-bottom">
+        <div class="container text-center" style="max-width: 800px;">
+            <span class="badge bg-danger-subtle text-danger fw-bold rounded-pill px-3 py-2 mb-2">
+                <i class="bi bi-robot me-1"></i> POWERED BY CLINICAL PHARMACOLOGY AI
+            </span>
+            <h2 class="fw-bold text-dark mb-2">AI Doctor Prescription & Medicine Formula Assistant</h2>
+            <p class="text-muted fs-6 mb-0">
+                Upload your doctor's handwritten prescription photo or specify active chemical formula salts (e.g. Paracetamol, Amoxicillin, Omeprazole). Our clinical AI analyzes doses, contraindications, and automatically matches authentic medicines in our pharmacy catalog with 1-click cart checkout.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Workspace -->
+    <div class="container py-5">
+        <div class="row g-4 justify-content-center">
+            <!-- Left: Input Form -->
+            <div class="col-lg-5">
+                <div class="prescription-box p-4 sticky-top" style="top: 90px;">
+                    <h5 class="fw-bold mb-3 d-flex align-items-center gap-2">
+                        <i class="bi bi-file-earmark-medical text-danger"></i> Enter Prescription or Formula
+                    </h5>
+
+                    <!-- Photo Upload Dropzone -->
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold text-muted d-block">
+                            Option 1: Upload Doctor Prescription or Medicine Box Photo
+                        </label>
+                        <div class="dropzone-area" id="prescriptionDropZone" onclick="document.getElementById('prescriptionFileInput').click()">
+                            <i class="bi bi-camera text-danger fs-1 mb-2 d-block"></i>
+                            <div class="fw-semibold text-dark small">Click to upload or drag & drop prescription image</div>
+                            <small class="text-muted">JPG, PNG, WEBP (Handwritten notes or medicine packaging)</small>
+                            <input type="file" id="prescriptionFileInput" accept="image/*" class="d-none">
+                        </div>
+
+                        <!-- Image Preview Container -->
+                        <div id="prescriptionImagePreviewContainer" class="position-relative mt-2" style="display:none;">
+                            <img id="prescriptionImagePreview" src="" alt="Prescription Preview" class="img-fluid rounded-3 border" style="max-height: 180px; width: 100%; object-fit: cover;">
+                            <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2 rounded-circle" id="removePrescriptionImage" title="Remove image">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Text input for formula / prescription notes -->
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold text-muted d-block">
+                            Option 2: Type Formula Salts, Symptoms or Doctor Notes
+                        </label>
+                        <textarea class="form-control" id="prescriptionTextInput" rows="4" 
+                                  placeholder="e.g. Rx: Amoxicillin 500mg with Clavulanic Acid 125mg for severe throat infection, or 'Need pain reliever with Paracetamol and Caffeine'"></textarea>
+                    </div>
+
+                    <!-- Quick Formula Chips -->
+                    <div class="mb-3">
+                        <small class="text-muted d-block mb-2 fw-semibold">Quick Formula & Prescription Tests:</small>
+                        <div class="d-flex flex-wrap gap-1">
+                            <button type="button" class="formula-chip-btn" data-formula="Augmentin 625mg (Amoxicillin 500mg + Clavulanic Acid 125mg) for acute throat infection">
+                                Augmentin (Amoxicillin + Clavulanate)
+                            </button>
+                            <button type="button" class="formula-chip-btn" data-formula="Panadol Extra (Paracetamol 500mg + Caffeine 65mg) for headache & fever">
+                                Panadol Extra (Paracetamol + Caffeine)
+                            </button>
+                            <button type="button" class="formula-chip-btn" data-formula="Risek 20mg (Omeprazole) - heartburn, stomach acid reflux">
+                                Risek (Omeprazole 20mg)
+                            </button>
+                            <button type="button" class="formula-chip-btn" data-formula="Brufen 400mg (Ibuprofen) - joint pain, inflammation">
+                                Brufen (Ibuprofen 400mg)
+                            </button>
+                            <button type="button" class="formula-chip-btn" data-formula="Arinac Forte (Ibuprofen + Pseudoephedrine) - flu, sinus, blocked nose">
+                                Arinac Forte (Cold & Sinus)
+                            </button>
+                            <button type="button" class="formula-chip-btn" data-formula="Zyrtec 10mg (Cetirizine HCl) - seasonal sneezing, runny nose, allergy">
+                                Zyrtec (Cetirizine Allergy)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Optional Patient Profile -->
+                    <div class="row g-2 mb-4">
+                        <div class="col-6">
+                            <label class="form-label small fw-semibold text-muted">Patient Age / Group</label>
+                            <input type="text" class="form-control form-control-sm" id="patientAgeInput" placeholder="e.g. Adult 35 yrs / Child 8 yrs">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small fw-semibold text-muted">Allergies / Notes</label>
+                            <input type="text" class="form-control form-control-sm" id="patientNotesInput" placeholder="e.g. Penicillin allergy / Diabetic">
+                        </div>
+                    </div>
+
+                    <!-- Run Button -->
+                    <button class="btn btn-danger w-100 py-3 rounded-pill fw-bold fs-6 shadow-sm" id="consultAIBtn">
+                        <i class="bi bi-cpu me-1"></i> Analyze Prescription & Match Medicines
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right: Results Panel -->
+            <div class="col-lg-7">
+                <!-- Loading Animation -->
+                <div id="aiConsultLoading" class="text-center py-5 prescription-box p-5" style="display:none;">
+                    <div class="spinner-border text-danger mb-3" style="width: 3.5rem; height: 3.5rem;" role="status"></div>
+                    <h5 class="fw-bold text-dark">Analyzing Doctor Prescription & Formulas...</h5>
+                    <p class="text-muted small mb-0">Our Clinical AI is validating active pharmaceutical salts, examining patient dosages, and matching authenticated inventory in MEDIX Pharmacy.</p>
+                </div>
+
+                <!-- Dynamic Output Container -->
+                <div id="aiConsultResultsContainer">
+                    <div class="prescription-box p-5 text-center text-muted">
+                        <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center p-4 mb-3" style="width: 80px; height: 80px;">
+                            <i class="bi bi-robot fs-1 text-danger"></i>
+                        </div>
+                        <h5 class="fw-bold text-dark">AI Pharmacologist Ready</h5>
+                        <p class="small text-muted mb-4" style="max-width: 440px; margin: 0 auto;">
+                            Upload a photo of your doctor's prescription slip or enter a medicine formula name on the left to receive complete clinical breakdown and direct shopping links.
+                        </p>
+                        <div class="row g-2 justify-content-center">
+                            <div class="col-auto">
+                                <span class="badge bg-light text-secondary border px-3 py-2 rounded-pill"><i class="bi bi-check-circle text-success me-1"></i> Active Formula Verification</span>
+                            </div>
+                            <div class="col-auto">
+                                <span class="badge bg-light text-secondary border px-3 py-2 rounded-pill"><i class="bi bi-check-circle text-success me-1"></i> Contraindications Checker</span>
+                            </div>
+                            <div class="col-auto">
+                                <span class="badge bg-light text-secondary border px-3 py-2 rounded-pill"><i class="bi bi-check-circle text-success me-1"></i> Instant 1-Click Cart</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/ai-prescription.js"></script>
+</body>
+</html>

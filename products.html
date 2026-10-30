@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Medicines & Healthcare Products - MEDIX</title>
+    <meta name="description" content="Browse authentic medicines, vitamins, antibiotics, and medical devices at MEDIX Pharmacy with clinical active formula details.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { background: #F8FAFC; font-family: 'Inter', sans-serif; }
+        .navbar { background: linear-gradient(135deg, #B91C1C, #991B1B) !important; }
+        .nav-link { color:#FFFFFF !important; font-weight:500 !important; }
+        .nav-link:hover, .nav-link.active { background:rgba(255,255,255,0.2) !important; border-radius:8px; }
+        .product-card {
+            border-radius: 20px !important;
+            border: 1.5px solid #F1F5F9 !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1) !important;
+            background: white;
+            overflow: hidden;
+        }
+        .product-card:hover {
+            transform: translateY(-6px) !important;
+            box-shadow: 0 16px 32px rgba(185,28,28,0.12) !important;
+            border-color: #B91C1C !important;
+        }
+        .category-pill {
+            padding: 8px 18px;
+            border-radius: 30px;
+            border: 1.5px solid #E2E8F0;
+            background: white;
+            color: #475569;
+            font-weight: 600;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .category-pill:hover, .category-pill.active {
+            background: #B91C1C;
+            border-color: #B91C1C;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="index.html">
+                    <div class="logo-icon-wrapper me-2">
+                        <i class="bi bi-heart-pulse-fill"></i>
+                    </div>
+                    <span class="fw-bold" style="letter-spacing: 1px;">MEDIX</span>
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <div class="mx-lg-4 my-3 my-lg-0 search-container" style="flex: 1; max-width: 500px;">
+                        <div class="input-group" style="border-radius: 12px; overflow: visible; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+                            <span class="input-group-text" style="background: white; border: none; border-radius: 12px 0 0 12px; padding-left: 1rem;">
+                                <i class="bi bi-search text-danger"></i>
+                            </span>
+                            <input type="text" 
+                                   class="form-control" 
+                                   placeholder="Search medicines, formulas (e.g. Paracetamol, Omeprazole)..." 
+                                   id="catalogSearchInput"
+                                   autocomplete="off"
+                                   style="border: none; font-size: 0.9rem; padding: 0.75rem 0.5rem; outline: none; box-shadow: none;">
+                            <button class="btn" type="button" id="catalogSearchBtn"
+                                    style="background: #B91C1C; color: white; border: none; border-radius: 0 12px 12px 0; padding: 0.75rem 1.25rem; font-weight: 600;">
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <ul class="navbar-nav mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="products.html">Products</a></li>
+                        <li class="nav-item"><a class="nav-link text-warning fw-bold" href="prescription.html"><i class="bi bi-robot"></i> AI Prescription</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    </ul>
+                    
+                    <div class="d-flex align-items-center gap-2 ms-lg-3">
+                        <a href="login.html" class="btn btn-outline-light btn-sm" id="navLoginBtn">
+                            <i class="bi bi-person"></i> Login
+                        </a>
+                        <a href="cart.html" class="position-relative text-white ms-2">
+                            <i class="bi bi-cart3 fs-4"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-count">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header Banner -->
+    <section class="py-4 bg-white border-bottom">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-7">
+                    <h2 class="fw-bold mb-1">Medicines & Healthcare Catalog</h2>
+                    <p class="text-muted mb-0">Authentic medicines with exact active pharmaceutical formulas and instant ordering</p>
+                </div>
+                <div class="col-md-5 text-md-end mt-3 mt-md-0">
+                    <a href="prescription.html" class="btn btn-danger fw-bold rounded-pill px-4 shadow-sm">
+                        <i class="bi bi-robot me-1"></i> Consult AI Prescription Doctor
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Filters & Products Grid -->
+    <div class="container py-4">
+        <!-- Category Pill Bar -->
+        <div class="d-flex flex-wrap gap-2 mb-4" id="categoryFilterContainer">
+            <button class="category-pill active" data-category="all"><i class="bi bi-grid-fill"></i> All Items</button>
+            <button class="category-pill" data-category="pain-relief">💊 Pain & Fever</button>
+            <button class="category-pill" data-category="antibiotics">🛡️ Antibiotics</button>
+            <button class="category-pill" data-category="digestive">🫄 Digestive & Stomach</button>
+            <button class="category-pill" data-category="cold-flu">🤧 Cold & Flu</button>
+            <button class="category-pill" data-category="vitamins">💉 Vitamins & Supplements</button>
+            <button class="category-pill" data-category="devices">🩺 Devices & Monitors</button>
+            <button class="category-pill" data-category="firstaid">🩹 First Aid</button>
+        </div>
+
+        <!-- Filter Count and Sort -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="text-muted small" id="productsCountText">Showing medicines...</div>
+            <div class="d-flex align-items-center gap-2">
+                <label class="small text-muted mb-0">Sort By:</label>
+                <select class="form-select form-select-sm border-0 shadow-sm" id="sortSelect" style="width: 170px; border-radius: 8px;">
+                    <option value="featured">Featured</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                    <option value="name">Name: A to Z</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="row g-4" id="productsGrid">
+            <!-- Dynamically populated via script -->
+            <div class="col-12 text-center py-5 text-muted">
+                <div class="spinner-border text-danger mb-3" role="status"></div>
+                <div>Loading medicine catalog...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/ai-prescription.js"></script>
+    <script>
+        let allProducts = [];
+        let currentCategory = 'all';
+        let currentSearch = '';
+
+        // Parse search from URL query
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('search')) {
+            currentSearch = urlParams.get('search');
+            document.getElementById('catalogSearchInput').value = currentSearch;
+        }
+        if (urlParams.get('category')) {
+            currentCategory = urlParams.get('category');
+        }
+
+        async function fetchProducts() {
+            try {
+                let url = '/api/products';
+                const res = await fetch(url);
+                allProducts = await res.json();
+                renderCatalog();
+            } catch (err) {
+                console.error(err);
+                document.getElementById('productsGrid').innerHTML = '<div class="col-12 text-center py-5 text-danger">Failed to load medicines. Please refresh the page.</div>';
+            }
+        }
+
+        function renderCatalog() {
+            let list = [...allProducts];
+
+            // Filter category
+            if (currentCategory && currentCategory !== 'all') {
+                list = list.filter(p => p.category.toLowerCase() === currentCategory.toLowerCase());
+            }
+
+            // Filter search
+            if (currentSearch.trim()) {
+                const term = currentSearch.toLowerCase().trim();
+                list = list.filter(p => 
+                    p.name.toLowerCase().includes(term) ||
+                    (p.formula && p.formula.toLowerCase().includes(term)) ||
+                    (p.generic_name && p.generic_name.toLowerCase().includes(term)) ||
+                    (p.description && p.description.toLowerCase().includes(term))
+                );
+            }
+
+            // Sort
+            const sortVal = document.getElementById('sortSelect').value;
+            if (sortVal === 'price-asc') list.sort((a,b) => a.price - b.price);
+            else if (sortVal === 'price-desc') list.sort((a,b) => b.price - a.price);
+            else if (sortVal === 'name') list.sort((a,b) => a.name.localeCompare(b.name));
+
+            document.getElementById('productsCountText').textContent = `Showing ${list.length} products`;
+
+            const grid = document.getElementById('productsGrid');
+            if (list.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <i class="bi bi-search fs-1 text-muted mb-3 d-block"></i>
+                        <h5>No medicines found matching "${currentSearch}"</h5>
+                        <p class="text-muted">Try searching with a generic formula name (e.g. Paracetamol, Ibuprofen, Omeprazole)</p>
+                        <button class="btn btn-outline-danger rounded-pill" onclick="clearFilters()">Reset Filters</button>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = list.map(p => `
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card h-100 product-card d-flex flex-column justify-content-between p-3">
+                        <div>
+                            <div class="position-relative mb-3 rounded-4 overflow-hidden" style="background:#F8FAFC; height: 180px; display:flex; align-items:center; justify-content:center;">
+                                <img src="${p.image_url}" alt="${p.name}" style="max-height: 100%; max-width: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=300';">
+                                ${p.prescription_required ? `<span class="badge bg-warning text-dark position-absolute top-0 start-0 m-2 rounded-pill px-2 py-1 small fw-bold"><i class="bi bi-prescription2"></i> Rx Required</span>` : ''}
+                                <span class="badge bg-danger position-absolute top-0 end-0 m-2 rounded-pill px-2 py-1 small fw-bold">In Stock</span>
+                            </div>
+                            <div class="text-muted small mb-1 text-uppercase fw-semibold" style="letter-spacing:0.5px; font-size:0.75rem;">${p.category}</div>
+                            <h6 class="fw-bold text-dark mb-1" style="font-size:0.95rem;">${p.name}</h6>
+                            <div class="text-danger small fw-semibold mb-2" style="font-size:0.8rem;">
+                                <i class="bi bi-capsule me-1"></i>${p.formula || p.generic_name}
+                            </div>
+                            <p class="text-muted small mb-3 text-truncate-2" style="font-size:0.82rem; height: 38px; overflow: hidden;">${p.description}</p>
+                        </div>
+                        <div>
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <span class="fw-bold text-danger fs-5">PKR ${p.price.toLocaleString()}</span>
+                                <small class="text-muted">${p.dosage_form || 'Pack'}</small>
+                            </div>
+                            <button class="btn btn-danger w-100 rounded-pill fw-bold py-2 add-to-cart-btn"
+                                    data-id="${p.id}"
+                                    data-name="${p.name.replace(/"/g, '&quot;')}"
+                                    data-price="${p.price}"
+                                    data-formula="${(p.formula || '').replace(/"/g, '&quot;')}"
+                                    data-category="${p.category}"
+                                    data-image="${p.image_url}">
+                                <i class="bi bi-cart-plus me-1"></i> Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Bind Add to Cart buttons
+            grid.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const product = {
+                        id: parseInt(btn.getAttribute('data-id')),
+                        name: btn.getAttribute('data-name'),
+                        price: parseFloat(btn.getAttribute('data-price')),
+                        formula: btn.getAttribute('data-formula'),
+                        category: btn.getAttribute('data-category'),
+                        image_url: btn.getAttribute('data-image')
+                    };
+                    window.medixAI.addToCart(product);
+                });
+            });
+        }
+
+        function clearFilters() {
+            currentCategory = 'all';
+            currentSearch = '';
+            document.getElementById('catalogSearchInput').value = '';
+            document.querySelectorAll('.category-pill').forEach(b => b.classList.remove('active'));
+            document.querySelector('.category-pill[data-category="all"]').classList.add('active');
+            renderCatalog();
+        }
+
+        // Category pill clicks
+        document.querySelectorAll('.category-pill').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.category-pill').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentCategory = btn.getAttribute('data-category');
+                renderCatalog();
+            });
+        });
+
+        // Search bar
+        document.getElementById('catalogSearchBtn').addEventListener('click', () => {
+            currentSearch = document.getElementById('catalogSearchInput').value;
+            renderCatalog();
+        });
+        document.getElementById('catalogSearchInput').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                currentSearch = e.target.value;
+                renderCatalog();
+            }
+        });
+
+        // Sort change
+        document.getElementById('sortSelect').addEventListener('change', renderCatalog);
+
+        // Check session for navbar
+        fetch('/api/check_session.php')
+            .then(r => r.json())
+            .then(data => {
+                if (data.logged_in) {
+                    document.getElementById('navLoginBtn').innerHTML = `<i class="bi bi-person-check-fill me-1"></i> ${data.name.split(' ')[0]}`;
+                    document.getElementById('navLoginBtn').href = data.role === 'admin' ? '/admin/index.html' : '#';
+                }
+            })
+            .catch(() => {});
+
+        // Initial fetch
+        fetchProducts();
+    </script>
+</body>
+</html>

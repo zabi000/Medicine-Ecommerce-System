@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Medix - AI Doctor Prescription & Pharmacy Store</title>
+    <meta name="description" content="Online pharmacy and healthcare e-commerce platform with AI doctor prescription analysis, active formula matching, dosage recommendations, and fast order checkout.">
+    <meta property="og:title" content="Medix - AI Doctor Prescription & Pharmacy Store">
+    <meta property="og:description" content="Online pharmacy and healthcare e-commerce platform with AI doctor prescription analysis, active formula matching, dosage recommendations, and fast order checkout.">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css?v=35.0">
+    <style>
+        .navbar { background: linear-gradient(135deg, #B91C1C, #991B1B) !important; }
+        .nav-link { color:#FFFFFF !important; font-weight:500 !important; opacity:1 !important; }
+        .nav-link:hover, .nav-link.active { color:#FFFFFF !important; background:rgba(255,255,255,0.2) !important; border-radius:8px; }
+        .btn-outline-primary { color:#FFFFFF !important; border-color:#FFFFFF !important; }
+        .suggestion-item { padding:.75rem 1.25rem;cursor:pointer;display:flex;align-items:center;font-size:.875rem;color:#1e293b;border-bottom:1px solid #f8fafc;transition:background .15s; }
+        .suggestion-item:last-child { border-bottom:none; }
+        .suggestion-item:hover, .suggestion-item.active { background:#fef2f2; }
+
+        /* === Homepage Visual Overhaul === */
+        body { background: #F8FAFC; }
+
+        /* Hero — clean white with subtle gradient */
+        section.hero { background: linear-gradient(160deg, #fff5f5 0%, #ffffff 40%, #f0f4ff 100%) !important; padding: 5rem 0 4rem; }
+
+        /* Product cards on homepage */
+        .card.product-card, .card.h-100 {
+            border-radius: 20px !important;
+            border: 1.5px solid #F1F5F9 !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1) !important;
+        }
+        .card.product-card:hover, .card.h-100:hover {
+            transform: translateY(-8px) !important;
+            box-shadow: 0 20px 40px rgba(185,28,28,0.13) !important;
+            border-color: #B91C1C !important;
+        }
+
+        /* Product image area — warm tint */
+        .product-image.text-center.py-5.bg-light,
+        div.product-image {
+            background: linear-gradient(145deg, #fff5f5, #fafafa) !important;
+            min-height: 180px;
+        }
+
+        /* Category cards — colored icon backgrounds */
+        .category-card { border-radius: 20px !important; }
+
+        /* Featured section */
+        .featured-products { background: #F8FAFC !important; padding: 5rem 0 !important; }
+
+        /* Deals section */
+        .deals-section { background: white !important; }
+
+        /* Trust badges */
+        .trust-badge {
+            background: white !important;
+            border: 1.5px solid #E2E8F0 !important;
+            border-radius: 16px !important;
+            color: #1A1A1A !important;
+            padding: 1.25rem 1.5rem !important;
+        }
+        .trust-badge:hover { border-color: #B91C1C !important; box-shadow: 0 6px 20px rgba(185,28,28,0.1) !important; }
+
+        /* Stats bar */
+        .stats { background: white !important; }
+        .stat-item h3 { color: #B91C1C !important; -webkit-text-fill-color: #B91C1C !important; }
+        .stat-item p { color: #64748b !important; }
+
+        /* Force white text on ALL red sections */
+        .promo-banner *,
+        .ad-banner *,
+        .ad-banner-2 *,
+        section[style*="B91C1C"] *,
+        section[style*="991B1B"] * { color: white !important; }
+
+        /* App store buttons */
+        .btn-app {
+            background: rgba(255,255,255,.15) !important;
+            color: white !important;
+            border: 1.5px solid rgba(255,255,255,.4) !important;
+            border-radius: 30px !important;
+            padding: .5rem 1.25rem !important;
+            text-decoration: none !important;
+            font-weight: 600 !important;
+            display: inline-flex !important;
+            align-items: center;
+            gap: .4rem;
+        }
+        .btn-app:hover { background: rgba(255,255,255,.3) !important; color: white !important; }
+
+        /* Footer payment — pill style */
+        .payment-btn-footer {
+            background: rgba(255,255,255,.1) !important;
+            color: white !important;
+            border: 1px solid rgba(255,255,255,.25) !important;
+            border-radius: 8px !important;
+            padding: .35rem .875rem !important;
+            font-size: .8rem !important;
+            font-weight: 600 !important;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center;
+            gap: .4rem;
+            margin-bottom: .35rem;
+        }
+        .payment-btn-footer:hover { background: rgba(255,255,255,.2) !important; }
+
+        /* Buttons */
+        .btn-danger { background: linear-gradient(135deg,#B91C1C,#DC2626) !important; border:none !important; border-radius:10px !important; font-weight:600 !important; transition:all .2s ease !important; }
+        .btn-danger:hover { background: linear-gradient(135deg,#991B1B,#B91C1C) !important; transform:translateY(-2px) !important; box-shadow:0 8px 20px rgba(185,28,28,.35) !important; }
+        .btn-outline-danger { color:#B91C1C !important; border-color:#B91C1C !important; border-radius:10px !important; font-weight:600 !important; }
+        .btn-outline-danger:hover { background:#B91C1C !important; color:white !important; }
+        .text-danger { color:#B91C1C !important; }
+        .bg-danger { background-color:#B91C1C !important; }
+        .border-danger { border-color:#B91C1C !important; }
+
+        /* Section backgrounds alternate */
+        section.categories { background: white !important; }
+        section.health-tips { background: linear-gradient(180deg, #fff5f5, #ffffff) !important; }
+        section.ad-banner-2 { background: linear-gradient(135deg, #B91C1C, #7F1D1D) !important; }
+
+        /* Promo banner */
+        section.promo-banner { background: linear-gradient(135deg,#B91C1C,#991B1B) !important; }
+
+        /* Fix btn-primary in deals section — make it red */
+        .deals-section .btn-primary,
+        .btn.btn-primary {
+            background: linear-gradient(135deg,#B91C1C,#DC2626) !important;
+            border-color: #B91C1C !important;
+            color: white !important;
+        }
+        .deals-section .btn-primary:hover,
+        .btn.btn-primary:hover {
+            background: linear-gradient(135deg,#991B1B,#B91C1C) !important;
+            color: white !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="index.html">
+                    <div class="logo-icon-wrapper me-2">
+                        <i class="bi bi-heart-pulse-fill"></i>
+                    </div>
+                    <span class="fw-bold" style="letter-spacing: 1px;">MEDIX</span>
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <!-- Search Bar in Header -->
+                    <div class="mx-lg-4 my-3 my-lg-0 search-container" style="flex: 1; max-width: 500px;">
+                        <div class="input-group" style="border-radius: 12px; overflow: visible; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+                            <span class="input-group-text" style="background: white; border: none; border-radius: 12px 0 0 12px; padding-left: 1rem;">
+                                <i class="bi bi-search text-danger"></i>
+                            </span>
+                            <input type="text" 
+                                   class="form-control" 
+                                   placeholder="Search medicines, vitamins..." 
+                                   id="searchInput"
+                                   autocomplete="off"
+                                   style="border: none; font-size: 0.9rem; padding: 0.75rem 0.5rem; outline: none; box-shadow: none;">
+                            <button class="btn" type="button" 
+                                    onclick="if(document.getElementById('searchInput').value) window.location.href='products.php?search='+encodeURIComponent(document.getElementById('searchInput').value)"
+                                    style="background: #B91C1C; color: white; border: none; border-radius: 0 12px 12px 0; padding: 0.75rem 1.25rem; font-weight: 600;">
+                                Search
+                            </button>
+                        </div>
+                        <div id="searchSuggestions" class="s-dropdown"></div>
+                    </div>
+                    
+                    <ul class="navbar-nav mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="products.html">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-warning fw-bold d-flex align-items-center gap-1" href="#ai-prescription-section">
+                                <i class="bi bi-robot"></i> AI Doctor Prescription
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                    </ul>
+                    
+                    <div class="d-flex align-items-center gap-2 ms-lg-3">
+                        <div id="navUserArea">
+                            <a href="login.php" class="btn btn-outline-light btn-sm" id="loginBtn">
+                                <i class="bi bi-person"></i> Login
+                            </a>
+                        </div>
+                        <a href="cart.php" class="position-relative text-white">
+                            <i class="bi bi-cart3 fs-4"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-count">0</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <!-- Advertisement Carousel -->
+            <div id="heroCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+                </div>
+                <div class="carousel-inner rounded-3 overflow-hidden">
+                    <!-- Ad Slide 1 - Payment Methods -->
+                    <div class="carousel-item active">
+                        <div class="ad-slide" style="background: linear-gradient(135deg, #FFFFFF 0%, #F8F9FA 100%); min-height: 400px; border: 3px solid var(--primary-color);">
+                            <div class="row align-items-center h-100 p-5">
+                                <div class="col-lg-6">
+                                    <span class="badge bg-danger text-white mb-3 px-4 py-2 fs-6">
+                                        <i class="bi bi-credit-card-fill"></i> SECURE PAYMENT
+                                    </span>
+                                    <h2 class="display-3 fw-bold mb-3 text-danger">Multiple Payment Options</h2>
+                                    <h3 class="fw-bold mb-3 text-dark fs-3">Pay Your Way</h3>
+                                    <p class="fs-5 mb-4 text-dark">We accept all major payment methods for your convenience</p>
+                                    <a href="products.php" class="btn btn-danger btn-lg px-5 py-3 shadow-lg">
+                                        <i class="bi bi-shop"></i> Shop Now
+                                    </a>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="payment-methods-showcase p-4">
+                                        <h4 class="text-center text-dark fw-bold mb-4">We Accept</h4>
+                                        <div class="row g-3">
+                                            <div class="col-4">
+                                                <div class="payment-card">
+                                                    <div class="payment-icon visa">
+                                                        <span class="fw-bold" style="color: #1A1F71; font-size: 1.5rem;">VISA</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="payment-card">
+                                                    <div class="payment-icon mastercard">
+                                                        <div class="mc-circles">
+                                                            <div class="circle red"></div>
+                                                            <div class="circle yellow"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="payment-card">
+                                                    <div class="payment-icon unionpay">
+                                                        <span class="fw-bold" style="color: #002B7A; font-size: 1.2rem;">UnionPay</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="payment-card">
+                                                    <div class="payment-icon hbl">
+                                                        <span class="fw-bold" style="color: #E31E24; font-size: 1.3rem;">HBL Pay</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="payment-card">
+                                                    <div class="payment-icon jazz">
+                                                        <span class="fw-bold" style="color: #FF6B00; font-size: 1.3rem;">JazzCash</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="payment-card">
+                                                    <div class="payment-icon easypaisa">
+                                                        <span class="fw-bold" style="color: #00A859; font-size: 1.1rem;">Easypaisa</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center mt-4">
+                                            <p class="text-muted mb-0"><i class="bi bi-shield-check text-success"></i> 100% Secure Transactions</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Ad Slide 2 - Fast Delivery -->
+                    <div class="carousel-item">
+                        <div class="ad-slide" style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); min-height: 400px;">
+                            <div class="row align-items-center h-100 p-5">
+                                <div class="col-lg-6 text-white">
+                                    <span class="badge bg-white text-danger mb-3 px-4 py-2 fs-6">
+                                        <i class="bi bi-truck-front-fill"></i> FREE SHIPPING
+                                    </span>
+                                    <h2 class="display-2 fw-bold mb-3 text-white">Free Delivery</h2>
+                                    <h3 class="fw-bold mb-3 text-white fs-2">on Orders Over PKR 2000</h3>
+                                    <p class="fs-5 mb-4 text-white">Get your medicines delivered to your doorstep at no extra cost</p>
+                                    <a href="products.php" class="btn btn-light btn-lg px-5 py-3 shadow-lg">
+                                        <i class="bi bi-box-seam-fill"></i> Order Now
+                                    </a>
+                                </div>
+                                <div class="col-lg-6 text-center text-white">
+                                    <div class="delivery-visual p-5">
+                                        <div class="delivery-icon-wrapper mb-4">
+                                            <i class="bi bi-truck-front-fill" style="font-size: 8rem; color: white;"></i>
+                                            <div class="delivery-speed-lines-white"></div>
+                                        </div>
+                                        <h3 class="text-white fw-bold mb-2">Fast & Reliable</h3>
+                                        <p class="text-white-50">Delivered within 24-48 hours</p>
+                                        <div class="d-flex justify-content-center gap-4 mt-4">
+                                            <div class="delivery-feature">
+                                                <i class="bi bi-shield-check text-white fs-3"></i>
+                                                <p class="small mb-0 mt-2 text-white">Secure</p>
+                                            </div>
+                                            <div class="delivery-feature">
+                                                <i class="bi bi-clock-fill text-white fs-3"></i>
+                                                <p class="small mb-0 mt-2 text-white">On Time</p>
+                                            </div>
+                                            <div class="delivery-feature">
+                                                <i class="bi bi-geo-alt-fill text-white fs-3"></i>
+                                                <p class="small mb-0 mt-2 text-white">Track Order</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Ad Slide 3 - Brand Logo & Trust -->
+                    <div class="carousel-item">
+                        <div class="ad-slide" style="background: linear-gradient(135deg, #FFFFFF 0%, #FFF5F5 100%); min-height: 400px; border: 3px solid var(--primary-color);">
+                            <div class="row align-items-center h-100 p-5">
+                                <div class="col-lg-6 text-center">
+                                    <div class="brand-showcase p-4">
+                                        <div class="main-logo-display mb-4">
+                                            <div class="logo-circle">
+                                                <i class="bi bi-heart-pulse-fill" style="font-size: 5rem; color: var(--primary-color);"></i>
+                                            </div>
+                                            <h1 class="display-2 fw-bold text-danger mt-3 mb-0" style="letter-spacing: 2px;">MEDIX</h1>
+                                            <p class="text-muted fs-5 mb-4">Your Trusted Healthcare Partner</p>
+                                        </div>
+                                        <div class="trust-indicators">
+                                            <div class="row g-3">
+                                                <div class="col-6">
+                                                    <div class="trust-box">
+                                                        <i class="bi bi-patch-check-fill text-success fs-1"></i>
+                                                        <p class="small fw-bold mb-0 mt-2">FDA Approved</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="trust-box">
+                                                        <i class="bi bi-shield-fill-check text-primary fs-1"></i>
+                                                        <p class="small fw-bold mb-0 mt-2">Secure Payment</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="trust-box">
+                                                        <i class="bi bi-truck-front-fill text-danger fs-1"></i>
+                                                        <p class="small fw-bold mb-0 mt-2">Fast Delivery</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="trust-box">
+                                                        <i class="bi bi-award-fill text-warning fs-1"></i>
+                                                        <p class="small fw-bold mb-0 mt-2">Quality Guaranteed</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <span class="badge bg-danger text-white mb-3 px-4 py-2 fs-6">
+                                        <i class="bi bi-star-fill"></i> TRUSTED BY THOUSANDS
+                                    </span>
+                                    <h2 class="display-3 fw-bold mb-3 text-danger">Why Choose Medix?</h2>
+                                    <div class="features-list">
+                                        <div class="feature-item mb-3">
+                                            <i class="bi bi-check-circle-fill text-danger fs-4 me-3"></i>
+                                            <span class="fs-5 fw-semibold">10,000+ Happy Customers</span>
+                                        </div>
+                                        <div class="feature-item mb-3">
+                                            <i class="bi bi-check-circle-fill text-danger fs-4 me-3"></i>
+                                            <span class="fs-5 fw-semibold">5,000+ Products Available</span>
+                                        </div>
+                                        <div class="feature-item mb-3">
+                                            <i class="bi bi-check-circle-fill text-danger fs-4 me-3"></i>
+                                            <span class="fs-5 fw-semibold">24/7 Customer Support</span>
+                                        </div>
+                                        <div class="feature-item mb-3">
+                                            <i class="bi bi-check-circle-fill text-danger fs-4 me-3"></i>
+                                            <span class="fs-5 fw-semibold">100% Authentic Medicines</span>
+                                        </div>
+                                    </div>
+                                    <a href="about.html" class="btn btn-danger btn-lg px-5 py-3 shadow-lg mt-3">
+                                        <i class="bi bi-info-circle"></i> Learn More
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+
+            <div class="row align-items-center g-4">
+                <div class="col-lg-7">
+                    <h1 class="hero-title display-3 fw-bold mb-4" style="color:#0F172A !important;">Your Trusted Online Pharmacy</h1>
+                    <p class="hero-subtitle fs-5 mb-4" style="color:#475569 !important;">Quality medicines and healthcare products delivered to your doorstep</p>
+                    <div class="mb-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-check-circle-fill text-danger fs-4 me-3"></i>
+                            <span class="fs-6 fw-semibold" style="color:#0F172A !important;">100% Genuine Products</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-check-circle-fill text-danger fs-4 me-3"></i>
+                            <span class="fs-6 fw-semibold" style="color:#0F172A !important;">Fast Delivery</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-danger fs-4 me-3"></i>
+                            <span class="fs-6 fw-semibold" style="color:#0F172A !important;">Expert Support</span>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="#ai-prescription-section" class="btn btn-warning btn-lg px-4 py-3 shadow fw-bold text-dark">
+                            <i class="bi bi-robot me-1"></i> AI Doctor Prescription
+                        </a>
+                        <a href="products.html" class="btn btn-primary btn-lg px-5 py-3 shadow">
+                            <i class="bi bi-shop"></i> Shop Now
+                        </a>
+                        <a href="contact.html" class="btn btn-outline-danger btn-lg px-5 py-3">
+                            <i class="bi bi-telephone"></i> Contact Us
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <div class="card border-primary text-center p-4 shadow-sm">
+                                <i class="bi bi-capsule text-primary" style="font-size: 3rem;"></i>
+                                <h5 class="mt-3 mb-2 text-dark">Medicines</h5>
+                                <p class="text-muted small mb-0">Prescription & OTC</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card border-primary text-center p-4 shadow-sm">
+                                <i class="bi bi-heart-pulse text-primary" style="font-size: 2.5rem;"></i>
+                                <h6 class="mt-3 mb-2 text-dark">Healthcare</h6>
+                                <p class="text-muted small mb-0">Medical Devices</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card border-primary text-center p-4 shadow-sm">
+                                <i class="bi bi-shield-check text-primary" style="font-size: 2.5rem;"></i>
+                                <h6 class="mt-3 mb-2 text-dark">Wellness</h6>
+                                <p class="text-muted small mb-0">Vitamins & Supplements</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- AI DOCTOR PRESCRIPTION & MEDICINE FORMULA ASSISTANT SECTION  -->
+    <!-- ============================================================ -->
+    <section id="ai-prescription-section" class="py-5" style="background: linear-gradient(180deg, #FFFFFF 0%, #FFF5F5 50%, #FFFFFF 100%); border-bottom: 1.5px solid #F1F5F9;">
+        <div class="container">
+            <div class="text-center mb-5" style="max-width: 820px; margin: 0 auto;">
+                <span class="badge bg-danger-subtle text-danger fw-bold rounded-pill px-3 py-2 mb-2" style="font-size: 0.85rem;">
+                    <i class="bi bi-robot me-1"></i> POWERED BY CLINICAL PHARMACOLOGY AI
+                </span>
+                <h2 class="display-6 fw-bold text-dark mb-2">AI Doctor Prescription & Formula Recommender</h2>
+                <p class="text-muted fs-6">
+                    Have a handwritten doctor prescription or searching by active chemical formula? Upload your prescription photo or type formula notes to receive instant clinical dosage verification, contraindications alerts, and 1-click cart matching.
+                </p>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <!-- Left: Interactive Input Panel -->
+                <div class="col-lg-5">
+                    <div class="card border-0 shadow-sm rounded-4 p-4" style="background: white; border: 1.5px solid #F1F5F9 !important;">
+                        <h5 class="fw-bold text-dark mb-3 d-flex align-items-center gap-2">
+                            <i class="bi bi-file-earmark-medical-fill text-danger"></i> Enter Prescription or Formula
+                        </h5>
+
+                        <!-- Prescription Image Upload -->
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-muted">
+                                Upload Doctor Prescription or Medicine Box (Photo)
+                            </label>
+                            <div class="p-3 text-center rounded-3" id="prescriptionDropZone" 
+                                 onclick="document.getElementById('prescriptionFileInput').click()"
+                                 style="border: 2px dashed #CBD5E1; background: #F8FAFC; cursor: pointer; transition: all 0.2s;">
+                                <i class="bi bi-camera text-danger fs-2 d-block mb-1"></i>
+                                <span class="fw-semibold text-dark small d-block">Click to upload prescription image</span>
+                                <small class="text-muted" style="font-size:0.75rem;">Supports JPG, PNG, WEBP (Handwritten or printed)</small>
+                                <input type="file" id="prescriptionFileInput" accept="image/*" class="d-none">
+                            </div>
+
+                            <div id="prescriptionImagePreviewContainer" class="position-relative mt-2" style="display:none;">
+                                <img id="prescriptionImagePreview" src="" alt="Prescription" class="img-fluid rounded-3 border" style="max-height: 160px; width: 100%; object-fit: cover;">
+                                <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2 rounded-circle" id="removePrescriptionImage">
+                                    <i class="bi bi-x"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Prescription / Formula Text Area -->
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-muted">
+                                Or Type Active Formula / Symptoms / Prescription Notes
+                            </label>
+                            <textarea class="form-control" id="prescriptionTextInput" rows="3" 
+                                      placeholder="e.g. Rx: Amoxicillin + Clavulanic Acid 625mg for throat infection, or 'Need pain reliever formula with Paracetamol and Caffeine'"></textarea>
+                        </div>
+
+                        <!-- Quick Formula Chips -->
+                        <div class="mb-3">
+                            <small class="text-muted d-block mb-2 fw-semibold" style="font-size: 0.78rem;">Quick Test Formulas:</small>
+                            <div class="d-flex flex-wrap gap-1">
+                                <button type="button" class="formula-chip-btn" data-formula="Augmentin 625mg (Amoxicillin 500mg + Clavulanic Acid 125mg) for throat infection">
+                                    Augmentin 625mg
+                                </button>
+                                <button type="button" class="formula-chip-btn" data-formula="Panadol Extra (Paracetamol 500mg + Caffeine 65mg) for headache">
+                                    Panadol Extra
+                                </button>
+                                <button type="button" class="formula-chip-btn" data-formula="Risek 20mg (Omeprazole) - stomach acid reflux, heartburn">
+                                    Risek 20mg (Omeprazole)
+                                </button>
+                                <button type="button" class="formula-chip-btn" data-formula="Brufen 400mg (Ibuprofen) - inflammation, fever, body pain">
+                                    Brufen 400mg
+                                </button>
+                                <button type="button" class="formula-chip-btn" data-formula="Arinac Forte (Ibuprofen + Pseudoephedrine) - flu & cold">
+                                    Arinac Forte
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Patient Age & Notes -->
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <label class="form-label small fw-semibold text-muted" style="font-size:0.75rem;">Patient Age</label>
+                                <input type="text" class="form-control form-control-sm" id="patientAgeInput" placeholder="e.g. Adult 30 yrs">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label small fw-semibold text-muted" style="font-size:0.75rem;">Allergies / Notes</label>
+                                <input type="text" class="form-control form-control-sm" id="patientNotesInput" placeholder="e.g. None / Diabetic">
+                            </div>
+                        </div>
+
+                        <button class="btn btn-danger w-100 py-3 rounded-pill fw-bold shadow-sm" id="consultAIBtn">
+                            <i class="bi bi-robot me-1"></i> Analyze Prescription & Recommend
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right: Analysis Output & Recommendations Panel -->
+                <div class="col-lg-7">
+                    <!-- Loading State -->
+                    <div id="aiConsultLoading" class="text-center py-5 card border-0 shadow-sm rounded-4 p-5" style="display:none; background:white;">
+                        <div class="spinner-border text-danger mb-3" style="width: 3.5rem; height: 3.5rem;" role="status"></div>
+                        <h5 class="fw-bold text-dark">Clinical AI is Analyzing Your Prescription...</h5>
+                        <p class="text-muted small mb-0">Cross-referencing active chemical salts, checking contraindications, and matching authentic inventory in MEDIX Pharmacy.</p>
+                    </div>
+
+                    <!-- Output Container -->
+                    <div id="aiConsultResultsContainer">
+                        <div class="card border-0 shadow-sm rounded-4 p-5 text-center text-muted" style="background:white; border: 1.5px solid #F1F5F9 !important;">
+                            <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center p-3 mb-3" style="width: 70px; height: 70px;">
+                                <i class="bi bi-robot fs-2 text-danger"></i>
+                            </div>
+                            <h5 class="fw-bold text-dark">Clinical Prescription Assistant Standing By</h5>
+                            <p class="small text-muted mb-4" style="max-width: 440px; margin: 0 auto;">
+                                Provide your doctor prescription notes or click one of the quick test formulas on the left to see the clinical breakdown and verified medicine options.
+                            </p>
+                            <div class="d-flex flex-wrap gap-2 justify-content-center">
+                                <span class="badge bg-light text-secondary border px-3 py-2 rounded-pill"><i class="bi bi-check-circle text-success me-1"></i> Active Formula Salts</span>
+                                <span class="badge bg-light text-secondary border px-3 py-2 rounded-pill"><i class="bi bi-check-circle text-success me-1"></i> Safety Warnings</span>
+                                <span class="badge bg-light text-secondary border px-3 py-2 rounded-pill"><i class="bi bi-check-circle text-success me-1"></i> 1-Click Cart Addition</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promotional Banner -->
+    <section class="promo-banner">
+        <div class="container">
+            <div class="row align-items-center text-center">
+                <div class="col-12">
+                    <span class="badge bg-light text-primary mb-3">
+                        <i class="bi bi-fire"></i> HOT DEAL
+                    </span>
+                    <h3 class="fw-bold mb-2">Get Up to 50% OFF on Selected Medicines</h3>
+                    <p class="mb-3">Limited time offer - Shop now and save big on your healthcare needs!</p>
+                    <a href="products.php" class="btn btn-outline-light btn-lg px-4 fw-bold">
+                        <i class="bi bi-bag-check me-2"></i> Shop Deals
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== LIVE OFFERS SECTION ===== -->
+    <section id="offers-section" style="background: linear-gradient(180deg,#fff5f5,#fff); padding: 4rem 0; display:none">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2 class="section-title mb-1" style="font-size:1.75rem">
+                        <i class="bi bi-tag-fill text-danger me-2"></i>Special Offers
+                    </h2>
+                    <p class="text-muted small mb-0">Limited time deals — grab them before they expire!</p>
+                </div>
+                <a href="products.php" class="btn btn-outline-danger btn-sm px-3">
+                    View All <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+            </div>
+            <div class="row g-4" id="offersGrid">
+                <!-- Loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Deals Slider -->
+    <section class="deals-section py-5">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">
+                <i class="bi bi-lightning-charge-fill text-warning"></i> Today's Best Deals
+            </h2>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="position-relative">
+                            <span class="badge bg-danger position-absolute top-0 end-0 m-3">-30%</span>
+                            <img src="https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&h=300&fit=crop" 
+                                 class="card-img-top" alt="Pain Relief" style="height: 200px; object-fit: cover;"
+                                 onerror="this.onerror=null;this.src='https://placehold.co/400x300/FEE2E2/B91C1C?text=Pain+Relief'">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Pain Relief Bundle</h5>
+                            <p class="text-muted small">Paracetamol + Ibuprofen Pack</p>
+                            <div class="d-flex align-items-center gap-2 mb-3">
+                                <span class="text-decoration-line-through text-muted">PKR 299</span>
+                                <span class="fs-4 fw-bold text-danger">PKR 209</span>
+                            </div>
+                            <form action="cart.php" method="POST">
+                                <input type="hidden" name="product_id" value="1">
+                                <button type="submit" class="btn btn-danger w-100">
+                                    <i class="bi bi-cart-plus"></i> Add to Cart
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="position-relative">
+                            <span class="badge bg-danger position-absolute top-0 end-0 m-3">-25%</span>
+                            <img src="https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=400&h=300&fit=crop" 
+                                 class="card-img-top" alt="Vitamin Pack" style="height: 200px; object-fit: cover;"
+                                 onerror="this.onerror=null;this.src='https://placehold.co/400x300/FEF3C7/D97706?text=Vitamin+Pack'">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Vitamin Pack</h5>
+                            <p class="text-muted small">Multivitamin + Vitamin D3</p>
+                            <div class="d-flex align-items-center gap-2 mb-3">
+                                <span class="text-decoration-line-through text-muted">PKR 399</span>
+                                <span class="fs-4 fw-bold text-danger">PKR 299</span>
+                            </div>
+                            <form action="cart.php" method="POST">
+                                <input type="hidden" name="product_id" value="3">
+                                <button type="submit" class="btn btn-danger w-100">
+                                    <i class="bi bi-cart-plus"></i> Add to Cart
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="position-relative">
+                            <span class="badge bg-danger position-absolute top-0 end-0 m-3">-40%</span>
+                            <img src="https://images.unsplash.com/photo-1603398938378-e54eab446dde?w=400&h=300&fit=crop" 
+                                 class="card-img-top" alt="First Aid Kit" style="height: 200px; object-fit: cover;"
+                                 onerror="this.onerror=null;this.src='https://placehold.co/400x300/D1FAE5/059669?text=First+Aid+Kit'">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">First Aid Kit</h5>
+                            <p class="text-muted small">Complete Emergency Kit</p>
+                            <div class="d-flex align-items-center gap-2 mb-3">
+                                <span class="text-decoration-line-through text-muted">PKR 499</span>
+                                <span class="fs-4 fw-bold text-danger">PKR 299</span>
+                            </div>
+                            <form action="cart.php" method="POST">
+                                <input type="hidden" name="product_id" value="5">
+                                <button type="submit" class="btn btn-danger w-100">
+                                    <i class="bi bi-cart-plus"></i> Add to Cart
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="position-relative">
+                            <span class="badge bg-danger position-absolute top-0 end-0 m-3">-20%</span>
+                            <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?w=400&h=300&fit=crop" 
+                                 class="card-img-top" alt="Health Monitor" style="height: 200px; object-fit: cover;"
+                                 onerror="this.onerror=null;this.src='https://placehold.co/400x300/DBEAFE/2563EB?text=Health+Monitor'">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Health Monitor</h5>
+                            <p class="text-muted small">Digital Thermometer</p>
+                            <div class="d-flex align-items-center gap-2 mb-3">
+                                <span class="text-decoration-line-through text-muted">PKR 599</span>
+                                <span class="fs-4 fw-bold text-danger">PKR 479</span>
+                            </div>
+                            <form action="cart.php" method="POST">
+                                <input type="hidden" name="product_id" value="7">
+                                <button type="submit" class="btn btn-danger w-100">
+                                    <i class="bi bi-cart-plus"></i> Add to Cart
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Shop by Category</h2>
+            <div class="category-grid">
+                <div class="category-card">
+                    <div class="category-icon"><i class="bi bi-capsule-pill" style="font-size:2rem;color:#B91C1C"></i></div>
+                    <h3>Prescription</h3>
+                    <p>Doctor prescribed medicines</p>
+                    <a href="products.php?category=prescription">Browse</a>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon"><i class="bi bi-bandaid-fill" style="font-size:2rem;color:#B91C1C"></i></div>
+                    <h3>First Aid</h3>
+                    <p>Emergency medical supplies</p>
+                    <a href="products.php?category=firstaid">Browse</a>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon"><i class="bi bi-heart-pulse-fill" style="font-size:2rem;color:#B91C1C"></i></div>
+                    <h3>Vitamins</h3>
+                    <p>Health supplements</p>
+                    <a href="products.php?category=vitamins">Browse</a>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon"><i class="bi bi-thermometer-half" style="font-size:2rem;color:#B91C1C"></i></div>
+                    <h3>Medical Devices</h3>
+                    <p>Healthcare equipment</p>
+                    <a href="products.php?category=devices">Browse</a>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon"><i class="bi bi-droplet-fill" style="font-size:2rem;color:#B91C1C"></i></div>
+                    <h3>Personal Care</h3>
+                    <p>Hygiene & wellness</p>
+                    <a href="products.php?category=personal">Browse</a>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon"><i class="bi bi-emoji-smile-fill" style="font-size:2rem;color:#B91C1C"></i></div>
+                    <h3>Baby Care</h3>
+                    <p>Products for infants</p>
+                    <a href="products.php?category=baby">Browse</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured-products">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">Featured Products</h2>
+            <div class="row g-4">
+                <!-- Product 1 -->
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="card product-card h-100">
+                        <div class="position-relative">
+                            <span class="badge bg-success position-absolute top-0 start-0 m-2">NEW</span>
+                            <div class="product-image text-center py-5 bg-light">
+                                <i class="bi bi-capsule-pill" style="font-size: 4rem; color: var(--primary-color);"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Paracetamol 500mg</h5>
+                            <p class="text-muted small mb-2">Pain & Fever Relief</p>
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="text-warning"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>
+                                <span class="text-muted small ms-2">(245)</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="fs-4 fw-bold text-danger">PKR 599</span>
+                                <span class="badge bg-success">In Stock</span>
+                            </div>
+                            <form action="cart.php" method="POST">
+                                <input type="hidden" name="product_id" value="1">
+                                <button type="submit" class="btn btn-danger w-100">
+                                    <i class="bi bi-cart-plus"></i> Add to Cart
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="card product-card h-100">
+                        <div class="position-relative">
+                            <span class="badge bg-danger position-absolute top-0 start-0 m-2">SALE</span>
+                            <div class="product-image text-center py-5 bg-light">
+                                <i class="bi bi-heart-pulse" style="font-size: 4rem; color: var(--primary-color);"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Vitamin D3 1000 IU</h5>
+                            <p class="text-muted small mb-2">Bone Health Support</p>
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="text-warning"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>
+                                <span class="text-muted small ms-2">(189)</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <span class="text-decoration-line-through text-muted">PKR 1,999</span>
+                                    <span class="fs-4 fw-bold text-danger ms-2">PKR 1,499</span>
+                                </div>
+                            </div>
+                            <form action="cart.php" method="POST">
+                                <input type="hidden" name="product_id" value="3">
+                                <button type="submit" class="btn btn-danger w-100">
+                                    <i class="bi bi-cart-plus"></i> Add to Cart
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="card product-card h-100">
+                        <div class="position-relative">
+                            <div class="product-image text-center py-5 bg-light">
+                                <i class="bi bi-droplet-fill" style="font-size: 4rem; color: var(--primary-color);"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Cough Syrup 100ml</h5>
+                            <p class="text-muted small mb-2">Cold & Flu Relief</p>
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="text-warning"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>
+                                <span class="text-muted small ms-2">(156)</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="fs-4 fw-bold text-danger">PKR 899</span>
+                                <span class="badge bg-success">In Stock</span>
+                            </div>
+                            <form action="cart.php" method="POST">
+                                <input type="hidden" name="product_id" value="2">
+                                <button type="submit" class="btn btn-danger w-100">
+                                    <i class="bi bi-cart-plus"></i> Add to Cart
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="card product-card h-100">
+                        <div class="position-relative">
+                            <span class="badge bg-success position-absolute top-0 start-0 m-2">NEW</span>
+                            <div class="product-image text-center py-5 bg-light">
+                                <i class="bi bi-bandaid-fill" style="font-size: 4rem; color: var(--primary-color);"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">First Aid Kit</h5>
+                            <p class="text-muted small mb-2">Complete Emergency Kit</p>
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="text-warning"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>
+                                <span class="text-muted small ms-2">(312)</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="fs-4 fw-bold text-danger">PKR 2,499</span>
+                                <span class="badge bg-warning text-dark">Low Stock</span>
+                            </div>
+                            <form action="cart.php" method="POST">
+                                <input type="hidden" name="product_id" value="5">
+                                <button type="submit" class="btn btn-danger w-100">
+                                    <i class="bi bi-cart-plus"></i> Add to Cart
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="card product-card h-100">
+                        <div class="position-relative">
+                            <div class="product-image text-center py-5 bg-light">
+                                <i class="bi bi-thermometer-half" style="font-size: 4rem; color: var(--primary-color);"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Digital Thermometer</h5>
+                            <p class="text-muted small mb-2">Fast & Accurate</p>
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="text-warning"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>
+                                <span class="text-muted small ms-2">(428)</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="fs-4 fw-bold text-danger">PKR 1,299</span>
+                                <span class="badge bg-success">In Stock</span>
+                            </div>
+                            <form action="cart.php" method="POST">
+                                <input type="hidden" name="product_id" value="7">
+                                <button type="submit" class="btn btn-danger w-100">
+                                    <i class="bi bi-cart-plus"></i> Add to Cart
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="card product-card h-100">
+                        <div class="position-relative">
+                            <span class="badge bg-danger position-absolute top-0 start-0 m-2">-20%</span>
+                            <div class="product-image text-center py-5 bg-light">
+                                <i class="bi bi-shield-fill-check" style="font-size: 4rem; color: var(--primary-color);"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Multivitamin Pack</h5>
+                            <p class="text-muted small mb-2">30 Day Supply</p>
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="text-warning"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>
+                                <span class="text-muted small ms-2">(567)</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <span class="text-decoration-line-through text-muted">PKR 2,999</span>
+                                    <span class="fs-4 fw-bold text-danger ms-2">PKR 2,399</span>
+                                </div>
+                            </div>
+                            <form action="cart.php" method="POST">
+                                <input type="hidden" name="product_id" value="4">
+                                <button type="submit" class="btn btn-danger w-100">
+                                    <i class="bi bi-cart-plus"></i> Add to Cart
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 7 -->
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="card product-card h-100">
+                        <div class="position-relative">
+                            <div class="product-image text-center py-5 bg-light">
+                                <i class="bi bi-activity" style="font-size: 4rem; color: var(--primary-color);"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Blood Pressure Monitor</h5>
+                            <p class="text-muted small mb-2">Digital BP Machine</p>
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="text-warning"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>
+                                <span class="text-muted small ms-2">(234)</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="fs-4 fw-bold text-danger">PKR 3,999</span>
+                                <span class="badge bg-success">In Stock</span>
+                            </div>
+                            <form action="cart.php" method="POST">
+                                <input type="hidden" name="product_id" value="6">
+                                <button type="submit" class="btn btn-danger w-100">
+                                    <i class="bi bi-cart-plus"></i> Add to Cart
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 8 -->
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="card product-card h-100">
+                        <div class="position-relative">
+                            <span class="badge bg-success position-absolute top-0 start-0 m-2">NEW</span>
+                            <div class="product-image text-center py-5 bg-light">
+                                <i class="bi bi-prescription2" style="font-size: 4rem; color: var(--primary-color);"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Antibiotic Cream</h5>
+                            <p class="text-muted small mb-2">Wound Care 15g</p>
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="text-warning"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>
+                                <span class="text-muted small ms-2">(178)</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="fs-4 fw-bold text-danger">PKR 699</span>
+                                <span class="badge bg-success">In Stock</span>
+                            </div>
+                            <form action="cart.php" method="POST">
+                                <input type="hidden" name="product_id" value="8">
+                                <button type="submit" class="btn btn-danger w-100">
+                                    <i class="bi bi-cart-plus"></i> Add to Cart
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <a href="products.php" class="btn btn-danger btn-lg px-5">
+                    View All Products <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advertisement Banner 1 -->
+    <section class="ad-banner" style="background:linear-gradient(135deg,#B91C1C,#7F1D1D)">
+        <div class="container">
+            <div class="ad-content">
+                <div class="ad-left">
+                    <span class="ad-tag">SPONSORED</span>
+                    <h3 style="color:white!important"><i class="bi bi-hospital-fill me-2"></i>Free Health Checkup</h3>
+                    <p style="color:rgba(255,255,255,.85)!important">Book your annual health screening today - Completely FREE for new customers!</p>
+                    <a href="contact.html" class="btn-ad" style="color:white!important">Book Now</a>
+                </div>
+                <div class="ad-right">
+                    <div class="ad-visual"><i class="bi bi-stethoscope" style="font-size:5rem;color:rgba(255,255,255,.3)"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Health Tips Section -->
+    <section class="health-tips">
+        <div class="container">
+            <h2 class="section-title"><i class="bi bi-lightbulb-fill text-warning me-2"></i>Health Tips &amp; Articles</h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-icon"><i class="bi bi-person-walking" style="font-size:2rem;color:#B91C1C"></i></div>
+                    <h4>Stay Active Daily</h4>
+                    <p>Regular exercise boosts immunity and overall health</p>
+                    <a href="#">Read More &rarr;</a>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon"><i class="bi bi-egg-fried" style="font-size:2rem;color:#B91C1C"></i></div>
+                    <h4>Balanced Diet</h4>
+                    <p>Nutrition is key to maintaining good health</p>
+                    <a href="#">Read More &rarr;</a>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon"><i class="bi bi-moon-stars-fill" style="font-size:2rem;color:#B91C1C"></i></div>
+                    <h4>Quality Sleep</h4>
+                    <p>7-8 hours of sleep improves mental health</p>
+                    <a href="#">Read More &rarr;</a>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon"><i class="bi bi-droplet-half" style="font-size:2rem;color:#B91C1C"></i></div>
+                    <h4>Stay Hydrated</h4>
+                    <p>Drink 8 glasses of water daily for better health</p>
+                    <a href="#">Read More &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advertisement Banner 2 -->
+    <section class="ad-banner-2">
+        <div class="container">
+            <div class="ad-banner-content" style="color:white">
+                <div class="ad-text">
+                    <span class="ad-label"><i class="bi bi-gift-fill me-1"></i>SPECIAL OFFER</span>
+                    <h3>Download Our Mobile App & Get 20% OFF</h3>
+                    <p>Shop on the go with exclusive app-only deals!</p>
+                    <div class="app-buttons">
+                        <a href="#" onclick="alert('App Store download coming soon!'); return false;" class="btn-app"><i class="bi bi-apple me-1"></i>App Store</a>
+                        <a href="#" onclick="alert('Play Store download coming soon!'); return false;" class="btn-app"><i class="bi bi-google-play me-1"></i>Play Store</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>10,000+</h3>
+                    <p>Happy Customers</p>
+                </div>
+                <div class="stat-item">
+                    <h3>5,000+</h3>
+                    <p>Products Available</p>
+                </div>
+                <div class="stat-item">
+                    <h3>24/7</h3>
+                    <p>Customer Support</p>
+                </div>
+                <div class="stat-item">
+                    <h3>100%</h3>
+                    <p>Authentic Medicines</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted Brands Section -->
+    <section class="brands-section">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">
+                <i class="bi bi-award-fill text-primary"></i> Trusted Brands
+            </h2>
+            <p class="text-center text-muted mb-5">We partner with leading pharmaceutical companies worldwide</p>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-4 col-6">
+                    <div class="card text-center p-4 h-100 brand-card">
+                        <div style="height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Pfizer_%282021%29.svg" alt="Pfizer" class="img-fluid" style="max-height: 80px; max-width: 100%; object-fit: contain;">
+                        </div>
+                        <h5 class="brand-name">Pfizer</h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-6">
+                    <div class="card text-center p-4 h-100 brand-card">
+                        <div style="height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+                            <div style="width:60px;height:60px;background:#F3663322;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto"><i class="bi bi-heart-pulse-fill" style="font-size:1.75rem;color:#F36633"></i></div>
+                        </div>
+                        <h5 class="brand-name">GSK</h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-6">
+                    <div class="card text-center p-4 h-100 brand-card">
+                        <div style="height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+                            <div style="width:60px;height:60px;background:#CC000022;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto"><i class="bi bi-bandaid-fill" style="font-size:1.75rem;color:#CC0000"></i></div>
+                        </div>
+                        <h5 class="brand-name">Johnson & Johnson</h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-6">
+                    <div class="card text-center p-4 h-100 brand-card">
+                        <div style="height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+                            <div style="width:60px;height:60px;background:#0460A922;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto"><i class="bi bi-shield-fill-check" style="font-size:1.75rem;color:#0460A9"></i></div>
+                        </div>
+                        <h5 class="brand-name">Novartis</h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-6">
+                    <div class="card text-center p-4 h-100 brand-card">
+                        <div style="height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+                            <div style="width:60px;height:60px;background:#10384F22;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto"><i class="bi bi-droplet-fill" style="font-size:1.75rem;color:#10384F"></i></div>
+                        </div>
+                        <h5 class="brand-name">Bayer</h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-6">
+                    <div class="card text-center p-4 h-100 brand-card">
+                        <div style="height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+                            <div style="width:60px;height:60px;background:#0066CC22;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto"><i class="bi bi-activity" style="font-size:1.75rem;color:#0066CC"></i></div>
+                        </div>
+                        <h5 class="brand-name">Abbott</h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-6">
+                    <div class="card text-center p-4 h-100 brand-card">
+                        <div style="height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+                            <div style="width:60px;height:60px;background:#0066B322;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto"><i class="bi bi-activity" style="font-size:1.75rem;color:#0066B3"></i></div>
+                        </div>
+                        <h5 class="brand-name">Roche</h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-6">
+                    <div class="card text-center p-4 h-100 brand-card">
+                        <div style="height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+                            <div style="width:60px;height:60px;background:#00999922;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto"><i class="bi bi-prescription2" style="font-size:1.75rem;color:#009999"></i></div>
+                        </div>
+                        <h5 class="brand-name">Merck</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="padding: 3rem 0; background-color: #F3F4F6;">
+        <div class="container">
+            <div class="trust-badges">
+                <div class="trust-badge">
+                    <i class="bi bi-patch-check-fill" style="color:#10B981;font-size:1.5rem"></i><span>FDA Approved</span>
+                </div>
+                <div class="trust-badge">
+                    <i class="bi bi-lock-fill" style="color:#F59E0B;font-size:1.5rem"></i><span>Secure Payment</span>
+                </div>
+                <div class="trust-badge">
+                    <i class="bi bi-truck-front-fill" style="color:#EF4444;font-size:1.5rem"></i><span>Fast Delivery</span>
+                </div>
+                <div class="trust-badge">
+                    <i class="bi bi-award-fill" style="color:#B91C1C;font-size:1.5rem"></i><span>Quality Guaranteed</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Testimonials -->
+    <section class="testimonials-section py-5">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">
+                <i class="bi bi-star-fill text-warning"></i> What Our Customers Say
+            </h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-rating mb-3">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                        </div>
+                        <p class="testimonial-text">"Fast delivery and genuine products! I've been ordering my monthly medicines from Medix for 6 months now. Highly recommended!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">Sarah Johnson</h6>
+                                <small class="text-muted">Verified Customer</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-rating mb-3">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                        </div>
+                        <p class="testimonial-text">"Excellent customer service! The pharmacist helped me choose the right supplements. Very professional and caring."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">Michael Chen</h6>
+                                <small class="text-muted">Verified Customer</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-rating mb-3">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                        </div>
+                        <p class="testimonial-text">"Best online pharmacy! Competitive prices, authentic medicines, and they even accept insurance. Will definitely order again."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <i class="bi bi-person-circle"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">Emily Rodriguez</h6>
+                                <small class="text-muted">Verified Customer</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <button class="scroll-top" id="scrollTop">â†‘</button>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <!-- About -->
+                <div class="footer-section">
+                    <h3>MEDIX</h3>
+                    <p>Your trusted online pharmacy</p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.php">Products</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><i class="bi bi-envelope-fill"></i> info@medix.com</p>
+                    <p><i class="bi bi-telephone-fill"></i> +92 300 1234567</p>
+                </div>
+
+                <!-- Payment Methods -->
+                <div class="footer-section">
+                    <h4>We Accept</h4>
+                    <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem">
+                        <span style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:white;padding:.35rem .875rem;border-radius:8px;font-size:.8rem;font-weight:600;display:inline-flex;align-items:center;gap:.4rem">
+                            <i class="bi bi-phone-fill" style="color:#FF6B00"></i> JazzCash
+                        </span>
+                        <span style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:white;padding:.35rem .875rem;border-radius:8px;font-size:.8rem;font-weight:600;display:inline-flex;align-items:center;gap:.4rem">
+                            <i class="bi bi-wallet2" style="color:#00A859"></i> Easypaisa
+                        </span>
+                        <span style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:white;padding:.35rem .875rem;border-radius:8px;font-size:.8rem;font-weight:600;display:inline-flex;align-items:center;gap:.4rem">
+                            <i class="bi bi-bank" style="color:#4FC3F7"></i> HBL Bank
+                        </span>
+                        <span style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:white;padding:.35rem .875rem;border-radius:8px;font-size:.8rem;font-weight:600;display:inline-flex;align-items:center;gap:.4rem">
+                            <i class="bi bi-cash-coin" style="color:#FFD700"></i> Cash on Delivery
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 MEDIX. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Newsletter Popup -->
+    <div class="newsletter-popup" id="newsletterPopup">
+        <div class="newsletter-content">
+            <button class="newsletter-close" id="closeNewsletter" type="button">&times;</button>
+            <div class="newsletter-icon">
+                <i class="bi bi-envelope-heart-fill"></i>
+            </div>
+            <h4>Get 10% OFF Your First Order!</h4>
+            <p>Subscribe to our newsletter for exclusive deals and health tips</p>
+            <form class="newsletter-form" id="newsletterForm">
+                <input type="email" class="form-control mb-2" placeholder="Enter your email" required>
+                <button type="submit" class="btn btn-danger w-100">Subscribe Now</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/ai-prescription.js"></script>
+    <script>
+        // Load live offers from API
+        fetch('api/get_offers.php?homepage=1&limit=8')
+            .then(r => r.json())
+            .then(offers => {
+                if (!offers.length) return;
+                const section = document.getElementById('offers-section');
+                const grid = document.getElementById('offersGrid');
+                section.style.display = 'block';
+                grid.innerHTML = offers.map(o => {
+                    const img = o.image_url
+                        ? `<img src="/ppp/${o.image_url}" alt="${o.name}" style="max-width:100%;max-height:150px;object-fit:contain" onerror="this.style.display='none'">`
+                        : `<i class="bi bi-capsule-pill" style="font-size:4rem;color:#FECACA"></i>`;
+                    const savings = Math.round(o.original_price - o.sale_price);
+                    return `
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <div class="card h-100 border-0" style="border-radius:20px;box-shadow:0 2px 12px rgba(0,0,0,0.07);transition:all .3s;overflow:hidden" onmouseenter="this.style.transform='translateY(-6px)';this.style.boxShadow='0 16px 40px rgba(185,28,28,0.15)'" onmouseleave="this.style.transform='';this.style.boxShadow='0 2px 12px rgba(0,0,0,0.07)'">
+                            <div style="background:linear-gradient(145deg,#fff5f5,#fafafa);height:160px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
+                                <span style="position:absolute;top:10px;left:10px;background:linear-gradient(135deg,#B91C1C,#DC2626);color:white;padding:4px 12px;border-radius:20px;font-size:.7rem;font-weight:800;letter-spacing:.3px">${o.offer_label}</span>
+                                <span style="position:absolute;top:10px;right:10px;background:#FEF2F2;color:#B91C1C;padding:4px 10px;border-radius:20px;font-size:.75rem;font-weight:700">-${Math.round(o.discount_percent)}%</span>
+                                ${img}
+                            </div>
+                            <div class="card-body" style="padding:1rem">
+                                <p class="mb-1" style="font-size:.8rem;color:#94A3B8;text-transform:uppercase;letter-spacing:.5px">${o.category || 'Medicine'}</p>
+                                <h6 class="fw-bold mb-2" style="font-size:.9rem;color:#0F172A;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${o.name}</h6>
+                                <div class="d-flex align-items-center gap-2 mb-1">
+                                    <span style="text-decoration:line-through;color:#94A3B8;font-size:.8rem">PKR ${parseInt(o.original_price).toLocaleString()}</span>
+                                    <span style="background:#FEF2F2;color:#B91C1C;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:700">Save PKR ${savings.toLocaleString()}</span>
+                                </div>
+                                <div class="fw-bold text-danger mb-3" style="font-size:1.2rem;letter-spacing:-.5px">PKR ${parseInt(o.sale_price).toLocaleString()}</div>
+                                <form action="cart.php" method="POST">
+                                    <input type="hidden" name="product_id" value="${o.product_id}">
+                                    <input type="hidden" name="sale_price" value="${o.sale_price}">
+                                    <button type="submit" class="btn btn-danger btn-sm w-100" style="border-radius:10px;font-weight:600">
+                                        <i class="bi bi-cart-plus me-1"></i>Add to Cart
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>`;
+                }).join('');
+            })
+            .catch(() => {}); // Silently fail if no offers
+        // Initialize smart search
+        new MedixSearch('searchInput', 'searchSuggestions', {
+            apiPath: 'api/search_suggestions.php',
+            redirectPath: 'products.php'
+        });
+        
+        // ===== Dynamic Login/Logout Navbar =====
+        fetch('/ppp/api/check_session.php', {credentials: 'include'})
+            .then(r => r.json())
+            .then(data => {
+                const area = document.getElementById('navUserArea');
+                if (!area) return;
+                if (data.logged_in) {
+                    const first = data.name.split(' ')[0];
+                    area.innerHTML = `
+                        <div class="dropdown">
+                            <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" style="border-radius:20px">
+                                <i class="bi bi-person-check-fill me-1"></i>${first}
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow" style="border-radius:12px;border:none;min-width:180px">
+                                <li class="px-3 py-2">
+                                    <div class="fw-bold" style="font-size:.85rem">${data.name}</div>
+                                    <div class="text-muted" style="font-size:.75rem">${data.email}</div>
+                                </li>
+                                <li><hr class="dropdown-divider my-1"></li>
+                                <li><a class="dropdown-item py-2" href="user/profile.php"><i class="bi bi-person me-2 text-danger"></i>My Profile</a></li>
+                                <li><a class="dropdown-item py-2" href="user/profile.php?tab=messages"><i class="bi bi-chat-dots me-2 text-danger"></i>Messages</a></li>
+                                <li><a class="dropdown-item py-2 text-danger" href="user/logout.php"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                            </ul>
+                        </div>`;
+                }
+            })
+            .catch(() => {});
+        // ===== End Dynamic Navbar =====
+        
+        // Newsletter popup (show after 5 seconds if element exists)
+        setTimeout(function() {
+            const popup = document.getElementById('newsletterPopup');
+            if (popup && !sessionStorage.getItem('newsletterShown')) {
+                popup.classList.add('show');
+            }
+        }, 5000);
+        
+        const closeNewsletterBtn = document.getElementById('closeNewsletter');
+        if (closeNewsletterBtn) {
+            closeNewsletterBtn.addEventListener('click', function() {
+                const popup = document.getElementById('newsletterPopup');
+                if (popup) popup.classList.remove('show');
+                sessionStorage.setItem('newsletterShown', 'true');
+            });
+        }
+        
+        // Newsletter form submission
+        const newsletterForm = document.getElementById('newsletterForm');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const popup = document.getElementById('newsletterPopup');
+                if (popup) popup.classList.remove('show');
+                sessionStorage.setItem('newsletterShown', 'true');
+                if (window.medixAI) {
+                    window.medixAI.showToast('Thank you for subscribing! Use coupon code: WELCOME10 for 10% off.');
+                }
+            });
+        }
+        
+        // Language selector with safe null check
+        const langSelect = document.getElementById('languageSelect');
+        if (langSelect) {
+            langSelect.addEventListener('change', function() {
+                const lang = this.value;
+                if (lang === 'ur') {
+                    if (window.medixAI) {
+                        window.medixAI.showToast('اردو زبان جلد دستیاب ہوگی (Urdu language coming soon!)');
+                    }
+                    this.value = 'en';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+
+

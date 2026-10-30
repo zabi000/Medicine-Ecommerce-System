@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicines Catalog - MEDIX Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root { --primary:#B91C1C; --sidebar-width:260px; }
+        body { font-family: 'Inter', sans-serif; background: #F1F5F9; margin: 0; }
+        .sidebar {
+            position: fixed; top: 0; left: 0; width: var(--sidebar-width); height: 100vh;
+            background: linear-gradient(160deg, #B91C1C 0%, #7F1D1D 100%);
+            color: white; z-index: 1000; overflow-y: auto;
+        }
+        .sb-brand { padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .sb-link {
+            display: flex; align-items: center; gap: 0.75rem; padding: 0.85rem 1.5rem;
+            color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem;
+            border-left: 3px solid transparent; transition: all 0.2s ease;
+        }
+        .sb-link:hover, .sb-link.active {
+            background: rgba(255,255,255,0.12); color: white; border-left-color: white;
+        }
+        .main-content { margin-left: var(--sidebar-width); padding: 2rem; }
+        .table-card {
+            background: white; border-radius: 16px; border: 1px solid #E2E8F0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06); overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sb-brand">
+            <h4 class="fw-bold mb-0"><i class="bi bi-heart-pulse-fill me-2"></i>MEDIX</h4>
+            <small class="text-white-50">Admin Pharmacy Portal</small>
+        </div>
+        <div class="py-2">
+            <a href="index.html" class="sb-link"><i class="bi bi-speedometer2"></i> Dashboard</a>
+            <a href="orders.html" class="sb-link"><i class="bi bi-cart-check"></i> Orders</a>
+            <a href="products.html" class="sb-link active"><i class="bi bi-box-seam"></i> Medicines Catalog</a>
+            <div class="my-2 border-top border-white border-opacity-10"></div>
+            <a href="/index.html" class="sb-link"><i class="bi bi-shop"></i> View Store</a>
+            <a href="/api/logout.php" class="sb-link text-danger-subtle"><i class="bi bi-box-arrow-right"></i> Logout</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h3 class="fw-bold text-dark mb-0">Medicines & Formulas Catalog</h3>
+                <small class="text-muted">Manage pharmaceutical active salts, prices, and stock inventory</small>
+            </div>
+            <button class="btn btn-danger btn-sm rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#addProductModal">
+                <i class="bi bi-plus-lg me-1"></i> Add New Medicine
+            </button>
+        </div>
+
+        <div class="table-card">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light small text-muted text-uppercase">
+                        <tr>
+                            <th>Medicine & Formula</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Rx?</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminProductsTable">
+                        <tr><td colspan="6" class="text-center py-4 text-muted">Loading medicines...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div class="modal fade" id="addProductModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content rounded-4 border-0">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title fw-bold"><i class="bi bi-capsule me-2"></i>Add Medicine to Inventory</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="addProductForm">
+                    <div class="modal-body p-4">
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Brand / Trade Name *</label>
+                            <input type="text" class="form-control" name="name" required placeholder="e.g. Panadol Extra 500mg">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Active Formula / Salt Composition *</label>
+                            <input type="text" class="form-control" name="formula" required placeholder="e.g. Paracetamol 500mg + Caffeine 65mg">
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <label class="form-label small fw-semibold">Category *</label>
+                                <select class="form-select" name="category">
+                                    <option value="pain-relief">Pain Relief</option>
+                                    <option value="antibiotics">Antibiotics</option>
+                                    <option value="digestive">Digestive Care</option>
+                                    <option value="cold-flu">Cold & Flu</option>
+                                    <option value="vitamins">Vitamins</option>
+                                    <option value="devices">Medical Devices</option>
+                                    <option value="firstaid">First Aid</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label small fw-semibold">Dosage Form</label>
+                                <select class="form-select" name="dosage_form">
+                                    <option value="Tablet">Tablet</option>
+                                    <option value="Capsule">Capsule</option>
+                                    <option value="Syrup">Syrup</option>
+                                    <option value="Suspension">Suspension</option>
+                                    <option value="Injection">Injection</option>
+                                    <option value="Inhaler">Inhaler</option>
+                                    <option value="Cream">Cream / Ointment</option>
+                                    <option value="Device">Medical Device</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <label class="form-label small fw-semibold">Price (PKR) *</label>
+                                <input type="number" class="form-control" name="price" required min="1" placeholder="e.g. 50">
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label small fw-semibold">Stock Quantity *</label>
+                                <input type="number" class="form-control" name="stock" required min="0" placeholder="e.g. 100">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Description & Indications</label>
+                            <textarea class="form-control" name="description" rows="2" placeholder="Therapeutic indications, symptoms treated..."></textarea>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" name="prescription_required" id="rxReqCheck">
+                            <label class="form-check-label small fw-semibold" for="rxReqCheck">
+                                Doctor's Prescription Required (Rx)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger rounded-pill fw-bold px-4">Save Medicine</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        async function loadAdminProducts() {
+            try {
+                const res = await fetch('/api/products');
+                const products = await res.json();
+                const tbody = document.getElementById('adminProductsTable');
+
+                tbody.innerHTML = products.map(p => `
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="fs-4">${p.icon || '💊'}</span>
+                                <div>
+                                    <div class="fw-bold text-dark">${p.name}</div>
+                                    <div class="small text-danger fw-semibold"><i class="bi bi-capsule me-1"></i>${p.formula || 'Active API'}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="badge bg-light text-secondary border text-capitalize">${p.category}</span></td>
+                        <td class="fw-bold text-danger">PKR ${p.price.toLocaleString()}</td>
+                        <td>
+                            <span class="badge ${p.stock_quantity > 20 ? 'bg-success' : 'bg-danger'}">
+                                ${p.stock_quantity} in stock
+                            </span>
+                        </td>
+                        <td>
+                            ${p.prescription_required ? `<span class="badge bg-warning text-dark">Rx Required</span>` : `<span class="badge bg-secondary">OTC</span>`}
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteMedicine(${p.id})">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function deleteMedicine(id) {
+            if (!confirm('Are you sure you want to remove this medicine?')) return;
+            try {
+                const res = await fetch(`/api/admin/products/${id}`, { method: 'DELETE' });
+                const data = await res.json();
+                if (data.success) {
+                    loadAdminProducts();
+                }
+            } catch (err) {
+                alert('Failed to delete medicine');
+            }
+        }
+
+        document.getElementById('addProductForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const payload = Object.fromEntries(formData.entries());
+            payload.prescription_required = document.getElementById('rxReqCheck').checked;
+
+            try {
+                const res = await fetch('/api/admin/products', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (data.success) {
+                    bootstrap.Modal.getInstance(document.getElementById('addProductModal')).hide();
+                    this.reset();
+                    loadAdminProducts();
+                }
+            } catch (err) {
+                alert('Error adding medicine');
+            }
+        });
+
+        loadAdminProducts();
+    </script>
+</body>
+</html>

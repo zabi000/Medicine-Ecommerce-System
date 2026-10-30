@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - MEDIX Online Pharmacy</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { background: #F8FAFC; font-family: 'Inter', sans-serif; }
+        .navbar { background: linear-gradient(135deg, #B91C1C, #991B1B) !important; }
+        .nav-link { color:#FFFFFF !important; font-weight:500 !important; }
+        .checkout-card {
+            background: white;
+            border-radius: 20px;
+            border: 1.5px solid #F1F5F9;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+        .payment-option-card {
+            border: 2px solid #E2E8F0;
+            border-radius: 14px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .payment-option-card:hover, .payment-option-card.selected {
+            border-color: #B91C1C;
+            background: #FEF2F2;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="index.html">
+                    <div class="logo-icon-wrapper me-2"><i class="bi bi-heart-pulse-fill"></i></div>
+                    <span class="fw-bold" style="letter-spacing: 1px;">MEDIX</span>
+                </a>
+                <div class="d-flex align-items-center gap-2">
+                    <a href="cart.html" class="btn btn-outline-light btn-sm rounded-pill px-3">
+                        <i class="bi bi-arrow-left me-1"></i> Return to Cart
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container py-5">
+        <h3 class="fw-bold mb-4 d-flex align-items-center gap-2">
+            <i class="bi bi-shield-check text-danger"></i> Complete Medicine Order
+        </h3>
+
+        <form id="checkoutForm">
+            <div class="row g-4">
+                <!-- Left: Shipping & Patient Details -->
+                <div class="col-lg-8">
+                    <div class="checkout-card p-4 mb-4">
+                        <h5 class="fw-bold mb-3 d-flex align-items-center gap-2">
+                            <i class="bi bi-person-badge text-danger"></i> 1. Patient & Delivery Information
+                        </h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Patient Full Name *</label>
+                                <input type="text" class="form-control" name="customer_name" id="custName" required placeholder="e.g. Ali Khan">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Email Address *</label>
+                                <input type="email" class="form-control" name="customer_email" id="custEmail" required placeholder="e.g. ali@example.com">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Phone / WhatsApp Number *</label>
+                                <input type="tel" class="form-control" name="customer_phone" id="custPhone" required placeholder="e.g. +92 300 1234567">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">City *</label>
+                                <select class="form-select" name="city" id="custCity">
+                                    <option value="Karachi">Karachi (Same Day Express)</option>
+                                    <option value="Lahore">Lahore (Next Day Express)</option>
+                                    <option value="Islamabad">Islamabad / Rawalpindi</option>
+                                    <option value="Faisalabad">Faisalabad</option>
+                                    <option value="Peshawar">Peshawar</option>
+                                    <option value="Multan">Multan</option>
+                                    <option value="Quetta">Quetta</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label small fw-semibold">Complete Street Delivery Address *</label>
+                                <textarea class="form-control" name="customer_address" id="custAddress" rows="2" required placeholder="House/Flat number, Street name, Area/Sector, Landmark"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label small fw-semibold">Prescription Notes / Doctor Instructions (Optional)</label>
+                                <input type="text" class="form-control" name="prescription_notes" id="prescriptionNotes" placeholder="Doctor name, dosage instructions or special requests">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="checkout-card p-4">
+                        <h5 class="fw-bold mb-3 d-flex align-items-center gap-2">
+                            <i class="bi bi-credit-card-2-front text-danger"></i> 2. Select Payment Method
+                        </h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="payment-option-card selected" onclick="selectPayment('cod', this)">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="payment_method" id="payCOD" value="cod" checked>
+                                        <label class="form-check-label fw-bold" for="payCOD">
+                                            💵 Cash on Delivery (COD)
+                                        </label>
+                                    </div>
+                                    <small class="text-muted d-block ps-4 mt-1">Pay with cash upon package arrival at your doorstep.</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="payment-option-card" onclick="selectPayment('jazzcash', this)">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="payment_method" id="payJazzCash" value="jazzcash">
+                                        <label class="form-check-label fw-bold" for="payJazzCash">
+                                            📱 JazzCash Mobile Wallet
+                                        </label>
+                                    </div>
+                                    <small class="text-muted d-block ps-4 mt-1">Direct wallet transfer to MEDIX official merchant account.</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="payment-option-card" onclick="selectPayment('easypaisa', this)">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="payment_method" id="payEasyPaisa" value="easypaisa">
+                                        <label class="form-check-label fw-bold" for="payEasyPaisa">
+                                            🟢 EasyPaisa Mobile Wallet
+                                        </label>
+                                    </div>
+                                    <small class="text-muted d-block ps-4 mt-1">Instant digital payment via EasyPaisa app or agent.</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="payment-option-card" onclick="selectPayment('bank', this)">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="payment_method" id="payBank" value="bank">
+                                        <label class="form-check-label fw-bold" for="payBank">
+                                            🏦 Online Bank Transfer (IBFT)
+                                        </label>
+                                    </div>
+                                    <small class="text-muted d-block ps-4 mt-1">Direct interbank funds transfer to HBL/Meezan Bank.</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Order Summary Preview -->
+                <div class="col-lg-4">
+                    <div class="checkout-card p-4">
+                        <h5 class="fw-bold mb-3">Order Items</h5>
+                        <div id="checkoutItemsList" class="mb-3" style="max-height: 260px; overflow-y: auto;">
+                            <!-- Populated by JS -->
+                        </div>
+
+                        <hr class="my-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Subtotal</span>
+                            <span class="fw-bold" id="checkoutSubtotal">PKR 0</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Express Delivery Fee</span>
+                            <span class="fw-bold text-success">PKR 150</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-4">
+                            <span class="fs-5 fw-bold">Total to Pay</span>
+                            <span class="fs-5 fw-bold text-danger" id="checkoutGrandTotal">PKR 0</span>
+                        </div>
+
+                        <button type="submit" class="btn btn-danger w-100 py-3 rounded-pill fw-bold fs-6" id="submitOrderBtn">
+                            <i class="bi bi-lock-fill me-1"></i> Confirm & Place Order
+                        </button>
+
+                        <div class="text-center mt-3 small text-muted">
+                            <i class="bi bi-shield-lock-fill text-success me-1"></i>
+                            100% Genuine Medicine Guarantee & Temperature-Controlled Delivery
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/ai-prescription.js"></script>
+    <script>
+        function selectPayment(val, el) {
+            document.querySelectorAll('.payment-option-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            document.getElementById(
+                val === 'cod' ? 'payCOD' :
+                val === 'jazzcash' ? 'payJazzCash' :
+                val === 'easypaisa' ? 'payEasyPaisa' : 'payBank'
+            ).checked = true;
+        }
+
+        // Prefill from user session if available
+        fetch('/api/check_session.php')
+            .then(r => r.json())
+            .then(data => {
+                if (data.logged_in) {
+                    if (data.name) document.getElementById('custName').value = data.name;
+                    if (data.email) document.getElementById('custEmail').value = data.email;
+                }
+            })
+            .catch(() => {});
+
+        // Load items from cart
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        if (cart.length === 0) {
+            alert('Your cart is empty. Please add items before checking out.');
+            window.location.href = 'products.html';
+        }
+
+        let subtotal = 0;
+        const listEl = document.getElementById('checkoutItemsList');
+        listEl.innerHTML = cart.map(item => {
+            const itemTotal = (item.price || 0) * (item.quantity || 1);
+            subtotal += itemTotal;
+            return `
+                <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                    <div>
+                        <div class="fw-semibold text-dark small">${item.name}</div>
+                        <div class="text-muted" style="font-size:0.75rem;">Qty: ${item.quantity || 1} &times; PKR ${(item.price || 0).toLocaleString()}</div>
+                    </div>
+                    <div class="fw-bold small text-danger">PKR ${itemTotal.toLocaleString()}</div>
+                </div>
+            `;
+        }).join('');
+
+        const shipping = 150;
+        const grandTotal = subtotal + shipping;
+        document.getElementById('checkoutSubtotal').textContent = `PKR ${subtotal.toLocaleString()}`;
+        document.getElementById('checkoutGrandTotal').textContent = `PKR ${grandTotal.toLocaleString()}`;
+
+        // Handle Order Submit
+        document.getElementById('checkoutForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitOrderBtn');
+            btn.disabled = true;
+            btn.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span> Processing Order...`;
+
+            const paymentMethod = document.querySelector('input[name="payment_method"]:checked')?.value || 'cod';
+
+            const payload = {
+                customer_name: document.getElementById('custName').value.trim(),
+                customer_email: document.getElementById('custEmail').value.trim(),
+                customer_phone: document.getElementById('custPhone').value.trim(),
+                city: document.getElementById('custCity').value,
+                customer_address: document.getElementById('custAddress').value.trim(),
+                prescription_notes: document.getElementById('prescriptionNotes').value.trim(),
+                payment_method: paymentMethod,
+                shipping: 150,
+                items: cart
+            };
+
+            try {
+                const res = await fetch('/api/orders', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (!res.ok || !data.success) {
+                    throw new Error(data.message || 'Failed to place order');
+                }
+
+                // Clear cart
+                localStorage.removeItem('cart');
+
+                // Store last order for order_success page
+                sessionStorage.setItem('lastOrder', JSON.stringify(data.order));
+
+                // Redirect to success page
+                window.location.href = `order_success.html?order_number=${encodeURIComponent(data.order_number)}`;
+            } catch (err) {
+                alert('Order Error: ' + err.message);
+                btn.disabled = false;
+                btn.innerHTML = `<i class="bi bi-lock-fill me-1"></i> Confirm & Place Order`;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+RewriteEngine On
+
+# Allow access to CSS, JS, and image files
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule \.(css|js|jpg|jpeg|png|gif|svg|ico)$ - [L]
+
+# Allow access to existing files and directories
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Set default index file — index.php first so offers load from DB
+DirectoryIndex index.php index.html
+
+# Enable PHP error display (for development only)
+php_flag display_errors On
+php_value error_reporting E_ALL

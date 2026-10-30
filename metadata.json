@@ -1,0 +1,8 @@
+{
+  "name": "Medix - AI Doctor Prescription & Pharmacy Store",
+  "description": "Online pharmacy and healthcare e-commerce platform with AI doctor prescription analysis, active formula matching, dosage recommendations, and fast order checkout.",
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ],
+  "permissions": []
+}
